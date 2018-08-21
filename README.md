@@ -3,5 +3,5 @@
 Para correr la aplicación:
 
 ````
-npm start
+npm install
 ````
