@@ -4,10 +4,15 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 //parse aplication /x-www-form-urlencoded
 
 app.use(bodyParser.urlencoded({ extended: false }))
+
+//habilitar la carpeta public para que se pueda acceder externamente
+
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 //parse aplication/json
 
