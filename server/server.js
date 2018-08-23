@@ -2,9 +2,19 @@ require('./config/config');
 
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-app.use(require('./routes/usuario'));
+//parse aplication /x-www-form-urlencoded
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+//parse aplication/json
+
+app.use(bodyParser.json())
+
+//Configuracion global de rutas
+app.use(require('./routes/index'));
 
 
 //conexion con la base de datos
