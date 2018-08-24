@@ -1,3 +1,4 @@
+let Categoria = require('../models/categoria');
 const jwt = require('jsonwebtoken');
 
 //==================
@@ -47,9 +48,44 @@ let verificaAdmin_Role = (req, res, next) => {
     }
 };
 
+//==================
+// Verifica categoria
+//==================
+
+let verificaCategoria = (req, res, next) => {
+
+    let body = req.body.categoria;
+
+    Categoria.findOne({ nombre: body })
+        .exec((err, categorias) => {
+
+            if (err) {
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            }
+
+            if (categorias) {
+                req.categoria = categorias;
+                next();
+            } else {
+                return res.status(400).json({
+                    ok: false,
+                    err: {
+                        message: 'La categoria ingresada no se encuentra registrada'
+                    }
+                });
+            }
+
+        });
+
+};
+
 
 
 module.exports = {
     verificatoken,
-    verificaAdmin_Role
+    verificaAdmin_Role,
+    verificaCategoria
 }
